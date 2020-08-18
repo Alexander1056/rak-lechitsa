@@ -1,11 +1,9 @@
 <template>
-  <!-- <div class="link-button"> -->
-  <a class="link-button" :href="url">
-    <p class="link-button__text">
+  <div>
+    <button @click.prevent="$emit('btnClick')" class="link-button">
       <slot></slot>
-    </p>
-  </a>
-  <!-- </div> -->
+    </button>
+  </div>
 </template>
 
 <script>
@@ -15,38 +13,38 @@ export default {
 </script>
 
 <style scoped>
-/* 
 .link-button {
-  max-width: 1320px;
-  margin: 0 auto;
-  min-height: 82px;
+  /* min-height: 82px; */
+  width: 100%;
   background: #fbfbfb;
   display: flex;
   justify-content: center;
-} */
-
-.link-button {
-  /*  */
-  max-width: 1320px;
-  margin: 0 auto;
-  min-height: 82px;
-  background: #fbfbfb;
-  display: flex;
-  justify-content: center;
+  align-items: center;
   text-decoration: none;
-}
-.link-button__text {
-  /* font-family: Inter; */
+  font-family: Inter;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 20px;
   align-self: center;
-  color: #000000;
+  color: #000;
+  cursor: pointer;
+  border: none;
 }
 
 .link-button:hover {
   /* text-decoration: underline; */
   background: #f8f8f8;
+}
+@media (max-width: 1280px) {
+  .link-button {
+    min-height: 78px;
+  }
+}
+@media (max-width: 1024px) {
+  .link-button {
+    min-height: 50px;
+    font-size: 16px;
+  }
 }
 </style>

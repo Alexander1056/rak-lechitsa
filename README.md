@@ -1,6 +1,14 @@
 # rak-lechitsa
 
-> My prime Nuxt.js project
+> Учебный проект для благотворительного фонда К. Хабенского
+> Связка: VUE.js + Nuxt.js
+> Задачи:
+- Разработать компоненты VUE
+- Организавать хранение данных в LocalStorage
+- Организавать прием и отправку данных с удаленного сервера
+
+> По проекту было получену ревью (3)
+
 
 ## Build Setup
 
@@ -18,5 +26,3 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).

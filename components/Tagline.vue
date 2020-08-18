@@ -1,34 +1,70 @@
 <template>
-  <div class="tagline">
-    <div class="tagline__text">
-      <slot></slot>
+  <div>
+    <div class="tagline">
+      <span>{{ text }}</span>
+      <span>{{ hashtext }}</span>
     </div>
   </div>
 </template>
 
+<script>
+export default {
+  props: ['text', 'hashtext'],
+};
+</script>
+
 <style scoped>
 .tagline {
-  min-height: 86px;
-  padding-bottom: 20px;
-  padding-top: 20px;
+  /* min-height: 86px; */
   background: #613a93;
-  border: 1px solid #000000;
+  border: 1px solid #000;
   box-sizing: border-box;
-  font-family: Inter;
   font-weight: normal;
   font-size: 30px;
   line-height: 46px;
-  color: #ffffff;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 1320px;
   width: 100%;
-  margin: 0 auto;
+  /* text-align: center; */
 }
-.tagline__text {
-  width: 100%;
-  max-width: 750px;
-  text-align: center;
+
+@media (min-width: 1280px) {
+  .tagline {
+    font-size: 28px;
+    line-height: 46px;
+  }
 }
+@media (min-width: 1024px) {
+  .tagline {
+    min-height: 80px;
+    font-size: 24px;
+    line-height: 40px;
+  }
+}
+@media (min-width: 768px) {
+  .tagline {
+    font-size: 22px;
+    line-height: 36px;
+  }
+}
+@media (min-width: 420px) {
+  .tagline {
+    font-size: 16px;
+    line-height: 18px;
+  }
+}
+@media (min-width: 1440px) {
+  .tagline {
+    font-size: 30px;
+    line-height: 46px;
+  }
+}
+/* @media (min-width: 320px) {
+  .tagline {
+    font-size: 16px;
+    line-height: 18px;
+  }
+} */
 </style>

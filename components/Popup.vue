@@ -1,120 +1,34 @@
 <template>
   <div class="popup">
-    <div class="popup__headings">
-      <h3 class="popup__title">Шаг {{ step }} из {{ stepsSum }}</h3>
-      <img src="../static/popupCross.svg" alt="" class="popup__cross" />
-    </div>
-
-    <p class="popup__question popup__question">
-      <span class="popup__question_main">{{ questions[0].question }}</span
-      >{{ questions[0].explanation }}
-    </p>
-    <form class="popup__form">
-      <input type="text" class="popup__input" placeholder="Напишите тут" />
-      <div class="popup__form-container">
-        <a
-          href=""
-          class="popup__goback"
-          :class="{ goback_active: isGobackActive }"
-          >Назад</a
-        >
-        <popupButton class="popupButton" type="submit">{{
-          popupButtonText
-        }}</popupButton>
-        <p class="popup__policy" :class="{ showPolicy: needPolicy }">
-          {{ policyText }}
-
-          <a href="../policy" class="popup__policy-link">{{ policyLink }}</a>
-        </p>
-      </div>
-    </form>
+    <img
+      src="/popupCross.svg"
+      alt
+      class="popup__cross"
+      @click="$emit('closeClick')"
+    />
+    <quiz />
   </div>
 </template>
 
 <script>
-import popupButton from '../components/ui/popupButton';
+import Qiuz from '@/components/Quiz';
 export default {
   components: {
-    popupButton: popupButton,
-  },
-  data() {
-    return {
-      popupButtonText: `Далее`,
-      step: 1,
-      isGobackActive: false,
-      needPolicy: true,
-      policyText: 'Нажимая на кнопку «отправить», вы даете согласие на',
-      policyLink: 'обработку персональных данных',
-      stepsSum: 12,
-      questions: [
-        { question: 'Как вас зовут?', explanation: '' },
-        {
-          question: 'Было ли у вас онкологическое заболевание? ',
-          explanation:
-            'Если да – расскажите, пожалуйста, кратко, какой диагноз и текущий статус. Если нет — приглашаем Вас поделиться своей историей неизлечимых привычек в Инстаграм с хештегами #раклечится и #этонелечится.',
-        },
-        {
-          question: 'Какие занятия приносят Вам наибольшее удовольствие? ',
-          explanation:
-            'Расскажите о ваших неизлечимых привычках, чего Вы боитесь или без чего не можете жить.',
-        },
-        {
-          question:
-            'На что, кроме семьи, быта и работы, Вы тратите свое время?',
-          explanation: '',
-        },
-        {
-          question: 'Какие сильные увлечения у Вас есть? ',
-          explanation:
-            'Расскажите о занятии, хобби или спорте, которые увлекают Вас с головой.',
-        },
-        {
-          question:
-            'Ваши близкие, друзья или коллеги замечали за вами какие-нибудь необычные привычки или особенности?',
-          explanation: '',
-        },
-        {
-          question:
-            'Существуют ли какие-то ритуалы/действия, которые Вы совершаете регулярно? ',
-          explanation: 'Кроме необходимых, таких, как чистка зубов.',
-        },
-        {
-          question:
-            'Если вам выдался свободный день/вечер в одиночестве, чем вы займетесь?',
-          explanation: '',
-        },
-        {
-          question: 'Что Вас успокаивает/умиротворяет лучше всего?',
-          explanation: '',
-        },
-        {
-          question:
-            'Какие события/ситуации или действия других людей обычно выводят Вас из себя?',
-          explanation: '',
-        },
-        { question: 'Как вы обычно проводите выходные?', explanation: '' },
-        {
-          question: 'Почта или телефон для связи. ',
-          explanation:
-            'Укажите удобный для вас формат связи. После обработки анкеты координатор проекта свяжется с Вами для размещения Вашей истории на сайте.',
-        },
-      ],
-    };
+    quiz: Qiuz,
   },
 };
 </script>
 
 <style scoped>
 .popup {
-  padding: 40px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   position: fixed;
   left: 50%;
   top: 50%;
-  width: 920px;
-  min-height: 600px;
-  background: #ffffff;
+
+  background: #fff;
   z-index: 2;
   transform: translate(-50%, -50%);
 }
@@ -124,30 +38,30 @@ export default {
   justify-content: space-between;
 }
 .popup__cross {
+  width: 100%;
+  position: fixed;
+  top: 35px;
+  left: calc(100% - 50px);
   width: 20px;
   height: 20px;
   cursor: pointer;
 }
 .popup__title {
-  font-family: Inter;
-  font-style: normal;
   font-weight: 600;
   font-size: 32px;
   line-height: 36px;
-  color: #000000;
+  color: #000;
 }
 .popup__question {
-  font-family: Inter;
-  font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 24px;
-  color: #666666;
+  color: #666;
   margin-top: 40px;
 }
 .popup__question_main {
   font-style: 500;
-  color: #000000;
+  color: #000;
 }
 .popup__form {
 }
@@ -159,12 +73,9 @@ export default {
   margin-top: 110px;
 }
 .popup__input::placeholder {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: normal;
   font-size: 18px;
   line-height: 24px;
-  color: #666666;
+  color: #666;
 }
 .popup__form-container {
   display: flex;
@@ -184,7 +95,7 @@ export default {
   text-decoration: none;
 }
 .goback_active {
-  color: #666666;
+  color: #666;
   cursor: pointer;
 }
 .popupButton {
@@ -197,12 +108,40 @@ export default {
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
-  color: #666666;
+  color: #666;
 }
 .showPolicy {
   display: inline;
 }
 .popup__policy-link {
-  color: #666666;
+  color: #666;
+}
+
+@media (max-width: 1440px) {
+}
+@media (max-width: 1280px) {
+}
+@media (max-width: 1024px) {
+}
+@media (max-width: 768px) {
+  .popup {
+    max-width: 580px;
+    width: 95%;
+    height: 520px;
+  }
+}
+
+@media (max-width: 500px) {
+  .popup__cross {
+    top: 13px;
+    left: calc(100% - 35px);
+  }
+}
+
+@media (max-width: 320px) {
+  .popup {
+    width: 290px;
+    height: 520px;
+  }
 }
 </style>

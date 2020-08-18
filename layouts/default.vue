@@ -1,18 +1,101 @@
 <template>
+  <!-- <div v-if="!this.loading"> -->
   <div>
-    <Header />
+    <!-- <Header @openClick="showQiuzPopUp" /> -->
+    <Header :dataObj="blocksData(11)" @openClick="showQiuzPopUp" />
     <nuxt />
-    <Footer />
+    <!-- <Footer @socClick="showSocLinkPopUp" /> -->
+    <Footer :dataObj="blocksData(10)" @socClick="showSocLinkPopUp" />
+    <modal-window @overlayClick="closePopup" @closeClick="closePopup">
+      <quiz v-if="getQiuzPopupState" @closeClick="closePopup" />
+      <footerPopup v-if="getSocLinksPopupState" @closeClick="closePopup" />
+    </modal-window>
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Overlay from '@/components/Overlay';
+import PopUp from '@/components/Popup';
+import ModalWindow from '@/components/ModalWindow';
+import Quiz from '@/components/Quiz';
+import FooterPopup from '@/components/FooterPopup';
 export default {
   components: {
     Header,
     Footer,
+    overlay: Overlay,
+    popup: PopUp,
+    'modal-window': ModalWindow,
+    quiz: Quiz,
+    footerPopup: FooterPopup,
+  },
+
+  data() {
+    return {
+      loading: true,
+    };
+  },
+
+  // async created() {
+  //   //   await this.$store.dispatch('stories/fetchStoryWithId');
+  //   await this.$store.dispatch('blocks/fetchBlocks');
+  //   //await this.$store.dispatch('stories/fetchStories');
+  //   console.log('loading...');
+  //   this.loading = false;
+  //   console.log('finished loading');
+  // },
+
+  computed: {
+    popupShown() {
+      return this.$store.getters['popup/getPopupState'];
+    },
+    getQiuzPopupState() {
+      return this.$store.getters['popup/getQiuzPopupState'];
+    },
+    getSocLinksPopupState() {
+      return this.$store.getters['popup/getSocLinksPopupState'];
+    },
+  },
+
+  // fetch() {
+  //   this.$store.dispatch('blocks/fetchBlocks');
+  // },
+
+  // async fetch({ store, params }) {
+  //   //   await store.dispatch('stories/fetchStories');
+  //   //await store.dispatch('statistics/fetchStatistics');
+  //   await store.dispatch('blocks/fetchBlocks');
+  // },
+
+  // async fetch({ store, params }) {
+  //   await store.dispatch('stories/fetchStories');
+  //   //await store.dispatch('statistics/fetchStatistics');
+  //   // await store.dispatch('blocks/fetchBlocks');
+  // },
+
+  methods: {
+    blocksData(id) {
+      let arrObj = this.$store.getters['blocks/getBlocks'];
+      const arrObj2 = arrObj.filter(item => {
+        return item.id === id;
+      });
+      return arrObj2[0];
+    },
+
+    closePopup() {
+      this.$store.dispatch('popup/closeAllPopups');
+    },
+
+    showQiuzPopUp() {
+      this.$store.commit('popup/toggleQiuzPopup');
+      this.$store.commit('popup/togglePopupState');
+    },
+    showSocLinkPopUp() {
+      this.$store.commit('popup/toggleSocLinksPopup');
+      this.$store.commit('popup/togglePopupState');
+    },
   },
 };
 </script>

@@ -1,103 +1,84 @@
 <template>
   <section class="statistics">
-    <h3 class="statistics__subtitle">Статистика по онкозаболеваниям</h3>
-    <div class="statistics__container">
-      <div class="statistics__card">
-        <p class="statistics__card-text">
-          Каждый 3-й в стране уверен, что рак неизлечим. А это примерно 48 918
-          000 человек.
-        </p>
-
-        <progressBar :val="33" />
-        <p class="statistics__digits">1 из 3</p>
-        <p class="statistics__digits-src">Левада-Центр 2018</p>
-      </div>
-
-      <div class="statistics__card">
-        <p class="statistics__card-text">2,6% Россиян имеют онкозаболевания.</p>
-
-        <progressBar :val="2.6" />
-        <p class="statistics__digits">3 700 000</p>
-        <p class="statistics__digits-src">Росстат 2018</p>
-      </div>
-
-      <div class="statistics__card">
-        <p class="statistics__card-text">
-          На 28% выросла доля выявления заболеваний на ранней стадии за 10 лет.
-        </p>
-
-        <doubleprogressbar :oldValue="50" :newValue="75" />
-        <p class="statistics__digits">↑28%</p>
-        <p class="statistics__digits-src">МНИОИ Герцена 2018</p>
-      </div>
-
-      <div class="statistics__card">
-        <p class="statistics__card-text">
-          На 25% снизилась смертность в течение первого года после постановки
-          диагноза.
-        </p>
-
-        <doubleprogressbar :oldValue="75" :newValue="55" />
-
-        <p class="statistics__digits">↓25%</p>
-        <p class="statistics__digits-src">МНИОИ Герцена 2018</p>
+    <section-title
+      class="section-title-mix"
+      :title="dataObj.title"
+    ></section-title>
+    <!-- <section-title :title="blocksData(8).title"></section-title> -->
+    <div class="statistics__container-overflow">
+      <div class="statistics__container">
+        <stat-block
+          v-for="(statData, index) in statDataObj"
+          :key="index"
+          :statData="statData"
+        />
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import progressBar from '~/components/ui/ProgressBar';
-import DoubleProgressBar from '~/components/ui/DoubleProgressBar';
+import SectionTitle from '@/components/ui/SectionTitle';
+import progressBar from '@/components/ui/ProgressBar';
+import DoubleProgressBar from '@/components/ui/DoubleProgressBar';
+import StatBlock from '@/components/Stat-block';
 export default {
   components: {
+    'section-title': SectionTitle,
     progressBar: progressBar,
     doubleprogressbar: DoubleProgressBar,
+    'stat-block': StatBlock,
+  },
+
+  props: {
+    statDataObj: {},
+    dataObj: {},
   },
 };
 </script>
 
 <style scoped>
+.section-title-mix.section-title {
+  width: 413px;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  /* padding-top: 100px; */
+  margin-bottom: 70px;
+}
+
 .statistics {
+  /* position: relative;
+  overflow: scroll; */
   display: flex;
   align-items: flex-start;
   flex-direction: column;
   width: 100%;
   max-width: 1320px;
-  margin: auto;
-  min-height: 600px;
-  background: #ffffff;
+  background: #fff;
 }
-.statistics__subtitle {
-  max-width: 300px;
-  width: 22%;
-  color: #000000;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 36px;
-  text-align: left;
-  padding: 0;
-  margin: 0;
-  padding-top: 100px;
-  margin-bottom: 70px;
+
+.statistics__container-overflow {
+  position: relative;
+  overflow: scroll;
+  width: 100%;
+  max-width: 1320px;
 }
+
 .statistics__container {
   width: 100%;
   display: flex;
   justify-content: space-between;
   margin: 0;
-  padding-bottom: 100px;
 }
 .statistics__card {
-  max-width: 300px;
-  width: 22%;
+  width: 300px;
   height: 300px;
-  max-width: 1320px;
+
   margin: 0;
   padding: 0;
   padding: 20px;
-  background: #ffffff;
+  background: #fff;
   border: 1px solid #efefef;
   box-sizing: border-box;
 }
@@ -108,8 +89,9 @@ export default {
   margin: 0;
   padding: 0;
   height: 124px;
-  color: #000000;
+  color: #000;
 }
+
 .statistics__digits {
   width: 100%;
   font-weight: 600;
@@ -119,7 +101,7 @@ export default {
   margin: 0;
   padding: 0;
   padding-top: 20px;
-  color: #000000;
+  color: #000;
 }
 .statistics__digits-src {
   width: 100%;
@@ -130,6 +112,109 @@ export default {
   margin: 0;
   padding: 0;
   padding-top: 20px;
-  color: #666666;
+  color: #666;
+}
+@media (max-width: 1280px) {
+  /* .statistics {
+    position: relative;
+    overflow: scroll;
+    //height: 265px;
+  } */
+
+  .section-title-mix.section-title {
+    /* width: 413px;
+  text-align: left;
+  padding: 0;
+  margin: 0; */
+    /* padding-top: 100px; */
+    margin-bottom: 60px;
+  }
+
+  .statistics__container {
+    height: 265px;
+  }
+
+  .statistics__card {
+    width: 265px;
+    height: 265px;
+    padding: 10px;
+  }
+
+  .statistics__card-text {
+    font-size: 12px;
+    line-height: 16px;
+    height: 104px;
+  }
+}
+@media (max-width: 1024px) {
+  .section-title-mix.section-title {
+    /* width: 413px;
+  text-align: left;
+  padding: 0;
+  margin: 0; */
+    /* padding-top: 100px; */
+    margin-bottom: 46px;
+  }
+
+  .statistics {
+    /* height: 208px; */
+  }
+
+  .statistics__container {
+    height: 208px;
+  }
+  .statistics__card {
+    width: 208px;
+    height: 208px;
+    padding: 10px;
+  }
+
+  .statistics__card-text {
+    font-size: 10px;
+    line-height: 14px;
+    height: 102px;
+  }
+  .statistics__digits {
+    font-size: 26px;
+    line-height: 30px;
+    padding-top: 10px;
+  }
+  .statistics__digits-src {
+    font-size: 10px;
+    line-height: 14px;
+    padding-top: 10px;
+  }
+}
+@media (max-width: 768px) {
+  .statistics {
+    align-items: center;
+  }
+
+  .section-title-mix.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .statistics__container {
+    position: relative;
+    overflow: scroll;
+    /* padding-bottom: 80px; */
+    /* left: 0;
+    bottom: 80px; */
+    width: 924px;
+    height: 216px;
+  }
+
+  .statistics__card {
+    width: 216px;
+    height: 216px;
+  }
+}
+
+@media (max-width: 320px) {
+  .section-title-mix.section-title {
+    text-align: left;
+    margin-bottom: 30px;
+  }
 }
 </style>

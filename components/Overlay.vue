@@ -1,5 +1,5 @@
 <template>
-  <div class="popup-layout"></div>
+  <div class="popup-layout" @click="$emit('overlayClick')"></div>
 </template>
 
 <script>
@@ -8,7 +8,7 @@ export default {};
 
 <style scoped>
 .popup-layout {
-  background-color: #000000;
+  background-color: #000;
   opacity: 0.5;
   position: fixed;
   left: 0;
